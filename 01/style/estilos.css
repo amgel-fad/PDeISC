@@ -1,0 +1,590 @@
+/* ============================================================
+   style.css – Hoja de estilos con variables, sidebar y responsive
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s ease, transform 0.3s ease;
+}
+
+/* ---------- VARIABLES (claro / oscuro) ---------- */
+:root {
+    --fondo-general: #f5f7fb;
+    --fondo-tarjeta: #ffffff;
+    --texto-principal: #1e2a3e;
+    --texto-secundario: #4a5568;
+    --borde-suave: #e2e8f0;
+    --encabezado-bg: #ffffff;
+    --sombra: 0 10px 25px -5px rgba(0,0,0,0.05);
+    --color-primario: #dc2626;
+    --fondo-tiktok: #000000cc;
+    --filtro-bg: #ffffff;
+    --sidebar-bg: #ffffff;
+    --sidebar-sombra: 0 0 30px rgba(0,0,0,0.3);
+}
+
+body.modo-noche {
+    --fondo-general: #0f172a;
+    --fondo-tarjeta: #1e293b;
+    --texto-principal: #f1f5f9;
+    --texto-secundario: #cbd5e1;
+    --borde-suave: #334155;
+    --encabezado-bg: #0f172a;
+    --sombra: 0 10px 25px -5px rgba(0,0,0,0.6);
+    --filtro-bg: #1e293b;
+    --sidebar-bg: #1e293b;
+    --sidebar-sombra: 0 0 30px rgba(0,0,0,0.8);
+}
+
+body {
+    font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--fondo-general);
+    color: var(--texto-principal);
+    line-height: 1.5;
+    padding-bottom: 2.5rem;
+}
+
+.contenedor-principal {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+/* ---------- ENCABEZADO ---------- */
+.encabezado-superior {
+    background-color: var(--encabezado-bg);
+    border-bottom: 1px solid var(--borde-suave);
+    padding: 0.8rem 0;
+    margin-bottom: 1rem;
+    box-shadow: var(--sombra);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(4px);
+}
+
+.barra-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+}
+
+.fecha-clima {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+.fecha-actual { font-weight: 500; }
+.clima-ciudad {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--fondo-general);
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+}
+.temperatura { font-weight: 700; color: var(--texto-principal); }
+
+.info-adicional {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+.dolar-hoy {
+    background: rgba(220,38,38,0.12);
+    padding: 0.2rem 0.8rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-primario);
+}
+.dolar-hoy span {
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-right: 0.25rem;
+    color: var(--texto-secundario);
+}
+
+/* Botones generales */
+.boton-modo, .boton-secciones, .boton-tiktok-scroll {
+    border: none;
+    border-radius: 40px;
+    padding: 0.35rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--fondo-general);
+    color: var(--texto-principal);
+    border: 1px solid var(--borde-suave);
+    transition: 0.2s;
+    white-space: nowrap;
+}
+.boton-secciones:hover, .boton-modo:hover {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+.boton-tiktok-scroll {
+    background: linear-gradient(135deg, #fe2c55, #25f4ee);
+    color: white;
+    border: none;
+}
+.boton-tiktok-scroll:hover {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+}
+
+/* ---------- SIDEBAR LATERAL ---------- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100%;
+    background: var(--sidebar-bg);
+    box-shadow: var(--sidebar-sombra);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+}
+.sidebar.abierto {
+    right: 0;
+}
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--borde-suave);
+    padding-bottom: 0.5rem;
+}
+.sidebar-header h2 {
+    font-size: 1.4rem;
+    color: var(--texto-principal);
+}
+.cerrar-sidebar {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--texto-secundario);
+}
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.sidebar-nav .btn-filtro-sidebar {
+    background: none;
+    border: 1px solid var(--borde-suave);
+    border-radius: 30px;
+    padding: 0.7rem 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--texto-principal);
+    cursor: pointer;
+    transition: 0.2s;
+    background: var(--fondo-general);
+}
+.sidebar-nav .btn-filtro-sidebar:hover {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+.sidebar-nav .btn-filtro-sidebar.activo {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+/* Fondo oscuro (overlay) */
+.overlay-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.overlay-sidebar.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- GRID DE NOTICIAS ---------- */
+.seccion-noticias { margin-top: 1.5rem; }
+.titulo-seccion {
+    font-size: 1.7rem;
+    font-weight: 700;
+    border-left: 5px solid var(--color-primario);
+    padding-left: 0.9rem;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.titulo-seccion span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--texto-secundario);
+}
+
+.grid-noticias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.tarjeta-noticia {
+    background: var(--fondo-tarjeta);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--borde-suave);
+    transition: transform 0.2s;
+}
+.tarjeta-noticia:hover { transform: translateY(-5px); }
+.imagen-noticia {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+.contenido-noticia { padding: 1.2rem; }
+.categoria {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(220,38,38,0.15);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    color: var(--color-primario);
+    display: inline-block;
+    margin-bottom: 0.6rem;
+}
+.titulo-noticia {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.resumen-noticia {
+    color: var(--texto-secundario);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.fecha-publicacion {
+    font-size: 0.7rem;
+    color: var(--texto-secundario);
+}
+
+.pie-pagina {
+    margin-top: 3rem;
+    text-align: center;
+    padding: 1.5rem;
+    border-top: 1px solid var(--borde-suave);
+}
+
+/* ---------- MODAL TIKTOK ---------- */
+.modal-tiktok {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--fondo-tiktok);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.modal-tiktok.abierto { opacity: 1; visibility: visible; }
+.contenedor-carrusel {
+    width: 100%; max-width: 400px; height: 85vh;
+    background: #000; border-radius: 28px;
+    overflow-y: auto; scroll-snap-type: y mandatory;
+    box-shadow: 0 25px 50px -12px black;
+    scroll-behavior: smooth;
+}
+.contenedor-carrusel::-webkit-scrollbar { width: 4px; }
+.tarjeta-tiktok {
+    scroll-snap-align: start;
+    min-height: 85vh;
+    background: #111; color: white;
+    border-bottom: 1px solid #2a2a2a;
+}
+.img-tiktok {
+    width: 100%; height: 55vh; object-fit: cover;
+    background: #1e1e2f;
+}
+.info-tiktok {
+    padding: 1.2rem;
+    background: linear-gradient(0deg, #000000cc, transparent);
+}
+.titulo-tiktok { font-size: 1.2rem; font-weight: bold; }
+.descripcion-tiktok { font-size: 0.85rem; color: #ddd; }
+.categoria-tiktok {
+    display: inline-block;
+    background: #fe2c55;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+.cerrar-tiktok {
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(0,0,0,0.6); color: white;
+    border: none; border-radius: 30px;
+    padding: 0.5rem 1rem; font-weight: bold;
+    z-index: 2100; cursor: pointer;
+}
+.indicador-scroll {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.5); border-radius: 20px;
+    padding: 0.2rem 0.6rem; font-size: 0.7rem; color: white;
+}
+
+/* ============================================================
+   RESPONSIVE – mobile-first, breakpoints limpios
+   ============================================================ */
+
+/* --- Tablet (≤ 768px) --- */
+@media (max-width: 768px) {
+    .contenedor-principal {
+        padding: 0 0.9rem;
+    }
+
+    /* El header se divide en DOS filas:
+       Fila 1: fecha + clima
+       Fila 2: dólar + botones */
+    .barra-info {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .fecha-clima {
+        justify-content: center;
+        gap: 0.6rem;
+        font-size: 0.82rem;
+    }
+
+    .info-adicional {
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: nowrap; /* en tablet entran todos en una fila */
+    }
+
+    .dolar-hoy {
+        font-size: 0.88rem;
+        padding: 0.2rem 0.65rem;
+    }
+
+    .boton-modo, .boton-secciones, .boton-tiktok-scroll {
+        padding: 0.32rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .grid-noticias {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .titulo-seccion {
+        font-size: 1.4rem;
+    }
+
+    .sidebar {
+        width: 270px;
+        right: -280px;
+    }
+
+    .contenedor-carrusel {
+        width: 92%;
+        height: 82vh;
+    }
+    .tarjeta-tiktok { min-height: 82vh; }
+}
+
+/* --- Zona conflictiva (481px – 560px): botones colapsan a solo emoji --- */
+@media (max-width: 560px) {
+    .info-adicional {
+        gap: 0.4rem;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .dolar-hoy span {
+        display: none;
+    }
+    .dolar-hoy {
+        font-size: 0.84rem;
+        padding: 0.22rem 0.6rem;
+        white-space: nowrap;
+    }
+
+    .boton-secciones span,
+    .boton-tiktok-scroll span,
+    .boton-modo #textoModo {
+        display: none;
+    }
+
+    .boton-modo, .boton-secciones, .boton-tiktok-scroll {
+        padding: 0.35rem 0.65rem;
+        font-size: 1rem;
+        min-width: 2.4rem;
+        justify-content: center;
+    }
+}
+
+/* --- Mobile pequeño (≤ 480px) --- */
+@media (max-width: 480px) {
+    .contenedor-principal {
+        padding: 0 0.75rem;
+    }
+
+    .encabezado-superior {
+        padding: 0.6rem 0;
+    }
+
+    /* Fila 1: fecha sola (el clima se oculta para ganar espacio) */
+    .fecha-clima {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        font-size: 0.78rem;
+    }
+    .clima-ciudad {
+        font-size: 0.75rem;
+        padding: 0.15rem 0.55rem;
+    }
+
+    /* Fila 2: dólar + 3 botones en fila, sin texto en los botones (solo emoji) */
+    .info-adicional {
+        justify-content: center;
+        gap: 0.4rem;
+        flex-wrap: nowrap;
+    }
+
+    .dolar-hoy {
+        font-size: 0.82rem;
+        padding: 0.22rem 0.6rem;
+        white-space: nowrap;
+    }
+    .dolar-hoy span {
+        display: none; /* oculta "Dólar hoy", deja solo el valor */
+    }
+
+    /* En pantallas pequeñas los botones muestran solo el emoji/ícono */
+    .boton-secciones span,
+    .boton-tiktok-scroll span,
+    .boton-modo #textoModo {
+        display: none;
+    }
+
+    .boton-modo, .boton-secciones, .boton-tiktok-scroll {
+        padding: 0.35rem 0.6rem;
+        font-size: 1rem;       /* emoji más grande al quedar solo */
+        min-width: 2.4rem;
+        justify-content: center;
+    }
+
+    /* Grid: una sola columna en móvil chico */
+    .grid-noticias {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .tarjeta-noticia {
+        border-radius: 0.9rem;
+    }
+
+    .imagen-noticia {
+        height: 170px;
+    }
+
+    .titulo-noticia {
+        font-size: 1.05rem;
+    }
+
+    .titulo-seccion {
+        font-size: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    /* Logo más chico */
+    .logo-diario h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .sidebar {
+        width: 100%;        /* sidebar ocupa toda la pantalla en móvil */
+        right: -105%;
+    }
+
+    .contenedor-carrusel {
+        width: 96%;
+        height: 88vh;
+        border-radius: 18px;
+    }
+    .tarjeta-tiktok { min-height: 88vh; }
+    .img-tiktok { height: 52vh; }
+
+    .cerrar-tiktok {
+        top: 12px;
+        right: 12px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.82rem;
+    }
+}
+
+/* --- Móvil muy chico (≤ 360px) --- */
+@media (max-width: 360px) {
+    .fecha-actual {
+        font-size: 0.72rem;
+    }
+
+    .dolar-hoy {
+        font-size: 0.76rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .boton-modo, .boton-secciones, .boton-tiktok-scroll {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.95rem;
+        min-width: 2.1rem;
+    }
+
+    .grid-noticias {
+        gap: 0.8rem;
+    }
+
+    .imagen-noticia {
+        height: 150px;
+    }
+
+    .contenido-noticia {
+        padding: 0.9rem;
+    }
+}

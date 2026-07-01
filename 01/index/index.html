@@ -1,0 +1,101 @@
+<!--
+  ============================================================
+  index.html – Estructura principal
+  ============================================================
+  - Encabezado con: fecha, clima, dólar, botón "Secciones" (abre sidebar),
+    botón "Noticias Rápidas" (modal TikTok) y modo día/noche.
+  - Sidebar lateral (oculto inicialmente) con lista de secciones.
+  - Grilla de noticias (48 historias en 8 secciones).
+  - Modal TikTok.
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Actualidad 360 | Diario Digital</title>
+    <link rel="stylesheet" href="../style/estilos.css">
+</head>
+<body>
+
+<!-- ========== ENCABEZADO SUPERIOR ========== -->
+<div class="encabezado-superior">
+    <div class="contenedor-principal">
+        <div class="barra-info">
+            <!-- Fecha y clima -->
+            <div class="fecha-clima">
+                <div class="fecha-actual" id="fechaDinamica">Martes 9 de junio de 2026</div>
+                <div class="clima-ciudad">
+                    <span>🌤️</span>
+                    <span class="temperatura" id="temperaturaClima">8°C</span>
+                    <span>Buenos Aires, ARG</span>
+                </div>
+            </div>
+            <!-- Acciones rápidas -->
+            <div class="info-adicional">
+                <div class="dolar-hoy"><span>💵 Dólar hoy</span> $1.095</div>
+                <!-- BOTÓN PARA ABRIR SIDEBAR DE SECCIONES -->
+                <button class="boton-secciones" id="botonAbrirSidebar">
+                    📂 <span>Secciones</span>
+                </button>
+                <!-- BOTÓN TIKTOK -->
+                <button class="boton-tiktok-scroll" id="botonAbrirTikTok">
+                    📱 <span>Noticias Rápidas</span> ⏯️
+                </button>
+                <!-- BOTÓN MODO DÍA/NOCHE -->
+                <button class="boton-modo" id="botonModoDiaNoche">
+                    <span class="icono-modo" id="iconoModo">☀️</span>
+                    <span id="textoModo">Modo Día</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SIDEBAR LATERAL (secciones) ========== -->
+<div id="sidebarSecciones" class="sidebar">
+    <div class="sidebar-header">
+        <h2>📂 Secciones</h2>
+        <button class="cerrar-sidebar" id="cerrarSidebarBtn">✕</button>
+    </div>
+    <nav class="sidebar-nav" id="listaSecciones">
+        <!-- Los botones se generan con JavaScript -->
+    </nav>
+</div>
+<!-- Fondo oscuro detrás del sidebar -->
+<div id="overlaySidebar" class="overlay-sidebar"></div>
+
+<!-- ========== CONTENIDO PRINCIPAL ========== -->
+<div class="contenedor-principal">
+    <!-- Logo -->
+    <div class="logo-diario" style="text-align:center; margin:0.5rem 0 0rem">
+        <h1 style="font-size:2rem; background: linear-gradient(135deg, var(--color-primario), #b91c1c); background-clip:text; -webkit-background-clip:text; color:transparent;">📰 Actualidad 360</h1>
+        <div class="eslogan" style="color:var(--texto-secundario);">Todo lo que necesitas saber, en un solo lugar</div>
+    </div>
+
+    <!-- SECCIÓN NOTICIAS -->
+    <div class="seccion-noticias">
+        <div class="titulo-seccion">
+            📌 Noticias
+            <span id="contadorSeccion">(48 historias)</span>
+        </div>
+        <div class="grid-noticias" id="contenedorNoticias"></div>
+    </div>
+
+    <footer class="pie-pagina">
+        <p>© 2026 Actualidad 360 – Hecho con ❤️</p>
+    </footer>
+</div>
+
+<!-- ========== MODAL TIKTOK ========== -->
+<div id="modalTikTok" class="modal-tiktok">
+    <button class="cerrar-tiktok" id="cerrarTikTokBtn">✕ Cerrar</button>
+    <div class="contenedor-carrusel" id="carruselTikTok"></div>
+    <div class="indicador-scroll">⬇️ Desliza hacia abajo ⬇️</div>
+</div>
+
+<!-- JavaScript -->
+<script src="../script/funcion.js"></script>
+</body>
+</html>
