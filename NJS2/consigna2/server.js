@@ -36,5 +36,5 @@ const server = http.createServer((req, res) => {
 // Ponemos el servidor a escuchar
 server.listen(PORT, () => {
     console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`📂 Sirviendo archivo HTML desde: ${path.join(__dirname, 'public', 'index.html')}`);
+    console.log(`aguante independiente: ${path.join(__dirname, 'public', 'index.html')}`);
 });

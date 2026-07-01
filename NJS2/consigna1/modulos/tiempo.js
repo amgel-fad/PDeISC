@@ -1,5 +1,4 @@
 // modulos/tiempo.js
-
 function fechaActual() {
     return new Date().toLocaleDateString('es-ES');
 }
@@ -15,7 +14,6 @@ function diferenciaDias(fecha1, fecha2) {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
-// Extra: saber si un año es bisiesto
 function esBisiesto(anio) {
     return (anio % 4 === 0 && anio % 100 !== 0) || (anio % 400 === 0);
 }
