@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consigna 2 - HTTP + FS</title>
+    <style>
+        /* Estilos base (modo día) */
+        body {
+            font-family: Arial, sans-serif;
+            background: #e9ecef;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Nav */
+        .navbar {
+            width: 100%;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 12px 30px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .navbar .info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1rem;
+        }
+
+        .navbar .info .fecha {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .navbar .info .clima {
+            background: #f1c40f;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .navbar .modo-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .navbar .modo-btn:hover {
+            background: #1a252f;
+        }
+
+        /* Card principal */
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            margin: 40px 20px;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        h1 { color: #2c3e50; }
+        p { color: #34495e; }
+        .badge {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        /* ----- MODO NOCHE ----- */
+        body.noche {
+            background: #1e272e;
+        }
+
+        body.noche .navbar {
+            background: #2f3640cc;
+            border-bottom-color: #3d4a57;
+        }
+
+        body.noche .navbar .info .fecha {
+            color: #dcdde1;
+        }
+
+        body.noche .navbar .info .clima {
+            background: #e1b12c;
+            color: #1e272e;
+        }
+
+        body.noche .navbar .modo-btn {
+            background: #f5f6fa;
+            color: #1e272e;
+        }
+
+        body.noche .navbar .modo-btn:hover {
+            background: #dcdde1;
+        }
+
+        body.noche .card {
+            background: #2f3640;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        body.noche .card h1 {
+            color: #f5f6fa;
+        }
+
+        body.noche .card p {
+            color: #dcdde1;
+        }
+
+        body.noche .card .badge {
+            background: #4a69bd;
+        }
+
+        body.noche .card .footer-text {
+            color: #a4b0be;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="info">
+            <span class="fecha" id="fechaActual">Cargando fecha...</span>
+            <span class="clima">🌧️ clima horrible 💀</span>
+        </div>
+        <button class="modo-btn" id="modoBtn">🌙 Modo noche</button>
+    </nav>
+
+    <!-- CARD (contenido original) -->
+    <div class="card">
+        <h1>📄 ¡Hola desde Node.js!</h1>
+        <p>Este archivo HTML está siendo servido por un servidor creado con los módulos <strong>HTTP</strong> y <strong>FILE SYSTEM</strong> de Node.js.</p>
+        <span class="badge">✅ Consigna 2 completada jsjsjs</span>
+        <p class="footer-text">Servidor corriendo correctamente.</p>
+    </div>
+
+    <script>
+        // 1. Mostrar fecha actual con formato "Martes, 16 de junio de 2026"
+        function formatearFecha(fecha) {
+            const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return fecha.toLocaleDateString('es-ES', opciones);
+        }
+
+        const fechaElem = document.getElementById('fechaActual');
+        const ahora = new Date();
+        fechaElem.textContent = formatearFecha(ahora);
+
+        // 2. Alternar modo día / noche
+        const body = document.body;
+        const modoBtn = document.getElementById('modoBtn');
+
+        modoBtn.addEventListener('click', () => {
+            body.classList.toggle('noche');
+            const esNoche = body.classList.contains('noche');
+            modoBtn.textContent = esNoche ? '☀️ Modo día' : '🌙 Modo noche';
+        });
+    </script>
+</body>
+</html>
