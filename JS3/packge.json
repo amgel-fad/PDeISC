@@ -1,0 +1,25 @@
+
+
+{
+
+  "name": "JS33",
+
+  "version": "1.0.0",
+
+  "description": "juego pacman xd",
+
+  "main": "server.js",
+
+  "script": {
+
+    "start": "node server.js"
+
+  },
+
+  "dependencies": {
+
+    "express": "^4.18.2"
+
+  }
+
+}

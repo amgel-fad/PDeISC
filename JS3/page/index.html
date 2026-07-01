@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>The Thief Runs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style/style.css" />
+</head>
+<body class="tema-dia">
+
+  <!-- ========== MENÚ PRINCIPAL ========== -->
+  <div id="menu-principal" class="pantalla active">
+    <div class="deco-gear top-left"></div>
+    <div class="deco-crane top-center"></div>
+    <button class="config-btn top-right" onclick="irAPantalla('pantalla-configuracion')">CONFIGURACIÓN ⚙️</button>
+    <div class="buildings-left">
+      <div class="building b1"></div>
+      <div class="building b2"></div>
+    </div>
+    <div class="buildings-right">
+      <div class="building b3"></div>
+    </div>
+    <div class="main-content">
+      <h1 class="titulo-juego">THE THIEF RUNS</h1>
+      <nav class="main-nav">
+        <button class="btn-menu-principal" onclick="irAPantalla('pantalla-niveles-1p')">UN JUGADOR</button>
+        <button class="btn-menu-principal" disabled style="opacity:0.5;cursor:not-allowed;" title="Modo no disponible">DOS JUGADORES</button>
+        <button class="btn-menu-principal" onclick="irAPantalla('pantalla-estadisticas')">ESTADÍSTICAS</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ========== PANTALLA NIVELES 1P ========== -->
+  <div id="pantalla-niveles-1p" class="pantalla" style="display:none;">
+    <div class="buildings-right small"><div class="building b3"></div></div>
+    <div class="levels-content">
+      <h2 class="titulo-seccion">NIVELES</h2>
+      <div id="lista-niveles-1p" class="grid-niveles"></div>
+    </div>
+    <button class="btn-volver" onclick="irAPantalla('menu-principal')">VOLVER</button>
+  </div>
+
+  <!-- ========== PANTALLA ESTADÍSTICAS ========== -->
+  <div id="pantalla-estadisticas" class="pantalla" style="display:none;">
+    <div class="stats-content">
+      <h2 class="titulo-seccion">ESTADÍSTICAS</h2>
+      <p class="stats-subtitle">APLICA LOS PUNTOS DEL JUGADOR</p>
+      <div class="stats-grid">
+        <div class="stats-card">
+          <p><span class="stat-label">NIVELES COMPLETADOS:</span> <span class="stat-value" id="stats-1p-niveles">0</span></p>
+          <p><span class="stat-label">PARTIDAS JUGADAS:</span> <span class="stat-value" id="stats-1p-partidas">0</span></p>
+          <p><span class="stat-label">DINERO RECOLECTADO:</span> <span class="stat-value" id="stats-1p-dinero">$0</span></p>
+          <p><span class="stat-label">NIVELES PERDIDOS:</span> <span class="stat-value" id="stats-1p-perdidos">0</span></p>
+          <div class="card-label">UN JUGADOR</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-volver" onclick="irAPantalla('menu-principal')">VOLVER</button>
+  </div>
+
+  <!-- ========== PANTALLA CONFIGURACIÓN ========== -->
+  <div id="pantalla-configuracion" class="pantalla" style="display:none;">
+    <div class="deco-gear top-left spinning"></div>
+    <div class="buildings-right small"><div class="building b3"></div></div>
+    <div class="config-content">
+      <h2 class="titulo-seccion">CONFIGURACIÓN</h2>
+      <div class="config-row">
+        <div class="config-group">
+          <span class="config-label">SONIDO</span>
+          <div class="toggle-group" data-opcion="sonido">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <span class="config-label">MÚSICA DEL MENU</span>
+          <div class="toggle-group" data-opcion="musica-menu">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-group">
+          <span class="config-label">MÚSICA DEL MAPA</span>
+          <div class="toggle-group" data-opcion="musica-mapa">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <span class="config-label">NOCHE</span>
+          <div class="toggle-group" data-opcion="noche">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-volver" onclick="irAPantalla('menu-principal')">VOLVER</button>
+  </div>
+
+  <!-- ========== CONTENEDOR DEL JUEGO ========== -->
+  <div id="game-container" style="display:none;">
+    <!-- Botón de pausa -->
+    <button id="btn-pausa" class="btn-pausa" onclick="togglePausa()">⏸️</button>
+
+    <div id="hud"></div>
+    <canvas id="canvas" width="588" height="616"></canvas>
+
+    <!-- Controles táctiles (D-pad) -->
+    <div id="touch-controls" class="touch-controls">
+      <div class="touch-btn touch-up" data-dir="up"></div>
+      <div class="touch-btn touch-down" data-dir="down"></div>
+      <div class="touch-btn touch-left" data-dir="left"></div>
+      <div class="touch-btn touch-right" data-dir="right"></div>
+    </div>
+
+    <!-- Botón de freno (Stop) -->
+    <button id="btn-stop" class="btn-stop" style="display:none;">
+      <div class="stop-icon"></div>
+    </button>
+
+    <!-- Overlay de pausa -->
+    <div id="overlay-pausa" class="overlay-pausa" style="display:none;">
+      <div class="overlay-pausa-contenido">
+        <h2>⏸️ PAUSA</h2>
+        <button class="btn-pausa-opcion" onclick="reanudarJuego()">▶ REANUDAR</button>
+        <button class="btn-pausa-opcion" onclick="reiniciarNivel()">🔄 REINICIAR NIVEL</button>
+        <button class="btn-pausa-opcion" onclick="abrirConfiguracionPausa()">⚙️ CONFIGURACIÓN</button>
+        <button class="btn-pausa-opcion" onclick="salirAlMenu()">🚪 VOLVER AL MENÚ</button>
+      </div>
+    </div>
+
+    <!-- Overlay de configuración dentro de pausa -->
+    <div id="overlay-config-pausa" class="overlay-pausa" style="display:none;">
+      <div class="overlay-pausa-contenido">
+        <h2>⚙️ CONFIGURACIÓN</h2>
+        <div class="config-pausa-row">
+          <span class="config-pausa-label">SONIDO</span>
+          <div class="toggle-group" data-opcion="sonido">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <div class="config-pausa-row">
+          <span class="config-pausa-label">MÚSICA DEL MENU</span>
+          <div class="toggle-group" data-opcion="musica-menu">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <div class="config-pausa-row">
+          <span class="config-pausa-label">MÚSICA DEL MAPA</span>
+          <div class="toggle-group" data-opcion="musica-mapa">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <div class="config-pausa-row">
+          <span class="config-pausa-label">NOCHE</span>
+          <div class="toggle-group" data-opcion="noche">
+            <button class="toggle-btn" data-valor="no">NO</button>
+            <button class="toggle-btn" data-valor="si">SI</button>
+          </div>
+        </div>
+        <button class="btn-pausa-opcion" onclick="cerrarConfiguracionPausa()">🔙 VOLVER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MODALES ========== -->
+  <div id="nota-modal" style="display:none;">
+    <div class="modal-contenido">
+      <h3 id="nota-titulo">¡Atención!</h3>
+      <p id="nota-texto"></p>
+      <img id="nota-imagen" src="" alt="Enemigo" />
+      <button id="nota-boton" class="btn-modal">Listo</button>
+    </div>
+  </div>
+
+  <div id="gameover-overlay" style="display:none;">
+    <div class="overlay-contenido">
+      <h2>GAME OVER</h2>
+      <p id="gameover-mensaje"></p>
+      <div class="botones-overlay">
+        <button id="btn-reintentar" class="btn-overlay">REINTENTAR</button>
+        <button id="btn-menu-gameover" class="btn-overlay">MENÚ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="victoria-overlay" style="display:none;">
+    <div class="overlay-contenido">
+      <h2>¡GANASTE!</h2>
+      <p id="victoria-mensaje"></p>
+      <p id="victoria-mensaje-final"></p>
+      <div class="botones-overlay">
+        <button id="btn-siguiente-nivel" class="btn-overlay">SIGUIENTE NIVEL</button>
+        <button id="btn-menu-principal" class="btn-overlay">MENÚ</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../script/menu.js"></script>
+</body>
+</html>

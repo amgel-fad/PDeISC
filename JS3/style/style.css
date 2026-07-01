@@ -1,0 +1,1199 @@
+/* ============================================================
+   THE THIEF RUNS — ESTILO COMPLETO CON CONTROLES TÁCTILES
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cream:   #faecb8;
+  --navy:    #1a2d4f;
+  --blue-mid:#4a6a9a;
+  --gold:    #f5c842;
+  --orange:  #e07a30;
+  --yellow:  #d4f200;
+  --white:   #ffffff;
+  --gear-light: #2a4570;
+  --gear-dark:  #f5c842;
+  --card-bg-light: #4a6a9a;
+  --card-bg-dark:  #2a3f6a;
+  --text-light: #1a2d4f;
+  --text-dark:  #f5c842;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', 'Arial Black', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- TEMAS ---------- */
+body.tema-dia {
+  background: var(--cream);
+  color: var(--text-light);
+}
+body.tema-noche {
+  background: var(--navy);
+  color: var(--text-dark);
+}
+
+/* ---------- PANTALLAS FULLSCREEN ---------- */
+.pantalla {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  overflow: hidden;
+  transition: opacity 0.4s ease-in-out, background 0.3s ease, box-shadow 0.3s ease;
+}
+.pantalla.active {
+  display: flex;
+}
+body.tema-dia .pantalla {
+  background: var(--cream);
+}
+body.tema-noche .pantalla {
+  background: #1a1a1a;
+}
+
+/* ---------- BOTÓN CONFIGURACIÓN (esquina superior derecha) ---------- */
+.config-btn {
+  position: absolute;
+  top: clamp(12px, 3vh, 30px);
+  right: clamp(12px, 3vw, 36px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(0.7rem, 1.5vw, 1.2rem);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+body.tema-dia .config-btn {
+  color: var(--text-light);
+}
+body.tema-noche .config-btn {
+  color: var(--text-dark);
+}
+.config-btn:hover {
+  transform: scale(1.08);
+}
+
+/* ---------- DECORACIONES ---------- */
+.deco-gear {
+  position: absolute;
+  width: clamp(80px, 15vw, 160px);
+  height: clamp(80px, 15vw, 160px);
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.deco-gear.top-left {
+  top: -5%;
+  left: -5%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231a2d4f' d='M43 2l-3 10a35 35 0 00-9 4L21 11 11 21l5 10a35 35 0 00-4 9L2 43v14l10 3a35 35 0 004 9L11 79l10 10 10-5a35 35 0 009 4l3 10h14l3-10a35 35 0 009-4l10 5 10-10-5-10a35 35 0 004-9l10-3V43l-10-3a35 35 0 00-4-9l5-10L79 11 69 16a35 35 0 00-9-4L57 2H43zm7 26a22 22 0 110 44 22 22 0 010-44z'/%3E%3C/svg%3E");
+}
+body.tema-noche .deco-gear.top-left {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23f5c842' d='M43 2l-3 10a35 35 0 00-9 4L21 11 11 21l5 10a35 35 0 00-4 9L2 43v14l10 3a35 35 0 004 9L11 79l10 10 10-5a35 35 0 009 4l3 10h14l3-10a35 35 0 009-4l10 5 10-10-5-10a35 35 0 004-9l10-3V43l-10-3a35 35 0 00-4-9l5-10L79 11 69 16a35 35 0 00-9-4L57 2H43zm7 26a22 22 0 110 44 22 22 0 010-44z'/%3E%3C/svg%3E");
+}
+.deco-gear.spinning {
+  animation: spin 6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- GRÚA MEJORADA ---------- */
+.deco-crane {
+  position: absolute;
+  top: -2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(140px, 25vw, 260px);
+  height: clamp(100px, 18vw, 180px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 180'%3E%3Crect x='115' y='0' width='12' height='60' fill='%23606060'/%3E%3Crect x='20' y='50' width='220' height='14' rx='4' fill='%23707070'/%3E%3Cpolygon points='115,50 115,14 180,50' fill='%23606060'/%3E%3Cline x1='210' y1='50' x2='210' y2='130' stroke='%23808080' stroke-width='3'/%3E%3Cpath d='M210,130 Q210,150 195,150 L190,150 Q180,150 180,140 L180,135' stroke='%23909090' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='210' cy='50' r='10' fill='%23808080'/%3E%3Ccircle cx='210' cy='50' r='4' fill='%23606060'/%3E%3Ccircle cx='40' cy='50' r='6' fill='%23f5c842'/%3E%3Ccircle cx='80' cy='50' r='6' fill='%23f5c842'/%3E%3Ccircle cx='160' cy='50' r='6' fill='%23f5c842'/%3E%3Ccircle cx='200' cy='50' r='6' fill='%23f5c842'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---------- EDIFICIOS ---------- */
+.buildings-left, .buildings-right {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+.buildings-left  { left: 0; }
+.buildings-right { right: 0; }
+
+.building {
+  border-radius: 3px 3px 0 0;
+  position: relative;
+}
+body.tema-dia .building {
+  background: var(--navy);
+}
+body.tema-noche .building {
+  background: #2a3f6a;
+}
+.building::after {
+  content: '';
+  position: absolute;
+  inset: 12px 8px;
+  background-image:
+    linear-gradient(transparent 0%, transparent 30%, var(--yellow) 30%, var(--yellow) 50%, transparent 50%),
+    linear-gradient(to right, transparent 0%, transparent 20%, var(--cream) 20%, var(--cream) 40%, transparent 40%, transparent 60%, var(--orange) 60%, var(--orange) 80%, transparent 80%);
+  background-size: 100% 28px, 60% 100%;
+  background-repeat: repeat-y, no-repeat;
+}
+body.tema-noche .building::after {
+  background-image:
+    linear-gradient(transparent 0%, transparent 30%, var(--yellow) 30%, var(--yellow) 50%, transparent 50%),
+    linear-gradient(to right, transparent 0%, transparent 20%, #7a8a9a 20%, #7a8a9a 40%, transparent 40%, transparent 60%, var(--orange) 60%, var(--orange) 80%, transparent 80%);
+}
+
+.b1 { width: clamp(50px, 10vw, 90px); height: clamp(180px, 40vh, 380px); }
+.b2 { width: clamp(60px, 12vw, 110px); height: clamp(150px, 32vh, 320px); }
+.b3 { width: clamp(55px, 10vw, 100px); height: clamp(160px, 36vh, 340px); }
+.buildings-right.small .b3 {
+  width: clamp(40px, 8vw, 70px);
+  height: clamp(120px, 28vh, 240px);
+}
+
+/* ---------- CONTENIDO PRINCIPAL ---------- */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(25px, 6vh, 60px);
+  padding: 0 10px 0 6%;
+  z-index: 5;
+  width: 100%;
+  max-width: 750px;
+}
+
+.titulo-juego {
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  line-height: 1.2;
+  white-space: nowrap;
+  width: 100%;
+}
+body.tema-dia .titulo-juego {
+  color: var(--navy);
+}
+body.tema-noche .titulo-juego {
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(245,200,66,0.15);
+}
+
+/* ---------- BOTONES DEL MENÚ ---------- */
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 2.5vh, 28px);
+  width: 90%;
+  max-width: 450px;
+  margin-top: 6px;
+}
+
+.btn-menu-principal {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.2rem, 3vw, 2.0rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  transition: transform 0.2s, opacity 0.2s;
+  width: auto;
+  text-align: left;
+  display: inline-block;
+  position: relative;
+}
+body.tema-dia .btn-menu-principal {
+  color: var(--navy);
+}
+body.tema-noche .btn-menu-principal {
+  color: var(--gold);
+}
+.btn-menu-principal:hover {
+  transform: scale(1.06);
+  opacity: 0.75;
+}
+
+/* ---------- SELECCIÓN DE NIVELES ---------- */
+.levels-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.titulo-seccion {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: clamp(16px, 3vh, 36px);
+}
+body.tema-dia .titulo-seccion {
+  color: var(--navy);
+}
+body.tema-noche .titulo-seccion {
+  color: var(--gold);
+}
+
+.grid-niveles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 2vw, 24px);
+  width: 100%;
+  max-width: 600px;
+}
+
+.btn-nivel {
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
+  cursor: pointer;
+  color: var(--white);
+  transition: transform 0.15s, filter 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.tema-dia .btn-nivel {
+  background: var(--blue-mid);
+}
+body.tema-noche .btn-nivel {
+  background: var(--gold);
+  color: var(--white);
+}
+.btn-nivel:hover:not(:disabled) {
+  transform: scale(1.07);
+  filter: brightness(1.1);
+}
+.btn-nivel:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.btn-nivel.bloqueado::after {
+  content: " 🔒";
+  font-size: 0.7em;
+}
+
+/* ---------- ESTADÍSTICAS ---------- */
+.stats-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.stats-subtitle {
+  font-size: clamp(0.7rem, 1.2vw, 0.95rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: clamp(12px, 2vh, 24px);
+  text-align: center;
+}
+body.tema-dia .stats-subtitle {
+  color: var(--navy);
+}
+body.tema-noche .stats-subtitle {
+  color: var(--gold);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2vw, 30px);
+  width: 100%;
+  max-width: 600px;
+}
+
+.stats-card {
+  border-radius: 8px;
+  padding: clamp(16px, 3vh, 32px) clamp(14px, 2vw, 28px) clamp(14px, 2vh, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 14px);
+  position: relative;
+  min-height: clamp(160px, 30vh, 260px);
+}
+body.tema-dia .stats-card {
+  background: var(--card-bg-light);
+}
+body.tema-noche .stats-card {
+  background: var(--card-bg-dark);
+}
+
+.stats-card p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-label {
+  color: var(--white);
+  font-weight: 900;
+  font-size: clamp(0.75rem, 1.2vw, 1.0rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.stat-value {
+  color: var(--white);
+  font-weight: 700;
+  font-size: clamp(0.75rem, 1.2vw, 1.0rem);
+}
+.card-label {
+  position: absolute;
+  bottom: clamp(10px, 1.5vh, 18px);
+  right: clamp(12px, 2vw, 24px);
+  color: var(--white);
+  font-weight: 900;
+  font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ---------- CONFIGURACIÓN ---------- */
+.config-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 550px;
+  gap: clamp(16px, 3vh, 36px);
+  padding: 10px;
+}
+
+.config-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3vw, 48px);
+  width: 100%;
+}
+
+.config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.config-label {
+  font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+body.tema-dia .config-label {
+  color: var(--navy);
+}
+body.tema-noche .config-label {
+  color: var(--gold);
+}
+
+.toggle-group {
+  display: flex;
+  gap: clamp(12px, 2vw, 28px);
+  align-items: center;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0.4;
+}
+body.tema-dia .toggle-btn {
+  color: var(--navy);
+}
+body.tema-noche .toggle-btn {
+  color: var(--gold);
+}
+.toggle-btn.active {
+  opacity: 1;
+}
+.toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.btn-secundario {
+  background: none;
+  border: 2px solid;
+  border-radius: 8px;
+  padding: clamp(8px, 1.5vh, 16px) clamp(20px, 4vw, 40px);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 6px;
+}
+body.tema-dia .btn-secundario {
+  color: var(--navy);
+  border-color: var(--navy);
+}
+body.tema-dia .btn-secundario:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+body.tema-noche .btn-secundario {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+body.tema-noche .btn-secundario:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+.btn-volver {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.0rem, 2vw, 1.4rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 0;
+  transition: transform 0.2s;
+  margin-top: clamp(8px, 2vh, 20px);
+  position: relative;
+}
+body.tema-dia .btn-volver {
+  color: var(--navy);
+}
+body.tema-noche .btn-volver {
+  color: var(--gold);
+}
+.btn-volver:hover {
+  transform: scale(1.06);
+}
+
+/* ---------- CONTENEDOR DEL JUEGO ---------- */
+#game-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background: #ffffff;
+  transition: background 0.3s ease;
+  position: relative;
+}
+body.tema-noche #game-container {
+  background: #1a1a1a;
+}
+#canvas {
+  border: 3px solid #2c3e50;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 588px;
+  aspect-ratio: 588 / 616;
+  touch-action: none;
+}
+#hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 588px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.06);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+body.tema-dia #hud {
+  background: rgba(0,0,0,0.05);
+}
+body.tema-noche #hud {
+  background: rgba(255,255,255,0.06);
+}
+
+/* ============================================================
+   BOTÓN DE PAUSA
+   ============================================================ */
+.btn-pausa {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 2px solid #f39c12;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.btn-pausa:hover {
+  background: #f39c12;
+  color: #1a1a1a;
+  transform: scale(1.1);
+}
+
+/* ============================================================
+   OVERLAY DE PAUSA
+   ============================================================ */
+.overlay-pausa {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  border-radius: 16px;
+}
+
+.overlay-pausa-contenido {
+  background: rgba(26, 26, 26, 0.95);
+  border: 3px solid #f39c12;
+  border-radius: 16px;
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+}
+
+.overlay-pausa-contenido h2 {
+  color: #f1c40f;
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  margin: 0 0 8px 0;
+  letter-spacing: 2px;
+}
+
+.btn-pausa-opcion {
+  background: none;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  color: #f39c12;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-pausa-opcion:hover {
+  background: #f39c12;
+  color: #1a1a1a;
+  transform: scale(1.03);
+}
+
+/* ============================================================
+   CONFIGURACIÓN DENTRO DE PAUSA
+   ============================================================ */
+.config-pausa-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.config-pausa-label {
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   CONTROLES TÁCTILES (PARA MÓVIL)
+   ============================================================ */
+.touch-controls {
+  display: none;  /* Oculto por defecto (solo en móvil) */
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 60;
+  width: 140px;
+  height: 140px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0.7; /* Más transparente para no tapar el mapa */
+  transition: opacity 0.2s;
+}
+
+.touch-controls.show {
+  display: block;  /* Se muestra en móvil mediante JS */
+}
+
+.touch-btn {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15); /* Más transparente */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.1s, background 0.1s;
+}
+
+.touch-btn:active,
+.touch-btn.pressed {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0.90);
+}
+
+/* Posición de los botones (estilo "cruz") */
+.touch-up {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.touch-down {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.touch-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+.touch-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* Flechas */
+.touch-up::after {
+  content: "▲";
+}
+.touch-down::after {
+  content: "▼";
+}
+.touch-left::after {
+  content: "◄";
+}
+.touch-right::after {
+  content: "►";
+}
+
+/* ============================================================
+   BOTÓN DE FRENO (STOP) - MÓVIL
+   ============================================================ */
+.btn-stop {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 60;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(220, 20, 20, 0.5); /* Más transparente */
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  display: none; /* Oculto por defecto, se muestra en móvil */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.15s, background 0.15s;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 15px rgba(220, 20, 20, 0.2);
+}
+
+.btn-stop.pressed {
+  transform: scale(0.85);
+  background: rgba(255, 50, 50, 0.7);
+}
+
+.stop-icon {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 3px;
+}
+
+/* Mostrar en móviles (con detección táctil) */
+@media (max-width: 768px) {
+  .btn-stop {
+    display: flex;
+  }
+  .touch-controls {
+    width: 120px;
+    height: 120px;
+    bottom: 12px;
+    left: 12px;
+  }
+  .touch-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .touch-controls {
+    width: 100px;
+    height: 100px;
+    bottom: 10px;
+    left: 10px;
+  }
+  .touch-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+  .btn-stop {
+    width: 42px;
+    height: 42px;
+    bottom: 15px;
+    right: 15px;
+  }
+  .stop-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .touch-controls {
+    width: 80px;
+    height: 80px;
+    bottom: 8px;
+    left: 8px;
+  }
+  .touch-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  .btn-stop {
+    width: 36px;
+    height: 36px;
+    bottom: 10px;
+    right: 10px;
+  }
+  .stop-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* ---------- MODALES ---------- */
+#nota-modal,
+#gameover-overlay,
+#victoria-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+.modal-contenido,
+.overlay-contenido {
+  background: #1a1a1a;
+  border: 3px solid #f39c12;
+  border-radius: 16px;
+  padding: clamp(20px, 4vh, 40px);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2vh, 24px);
+  color: #fff;
+}
+.modal-contenido h3,
+.overlay-contenido h2 {
+  color: #f1c40f;
+  margin: 0;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+}
+.modal-contenido p,
+.overlay-contenido p {
+  color: #fff;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  margin: 0;
+}
+#nota-imagen {
+  width: clamp(60px, 12vw, 120px);
+  height: auto;
+  image-rendering: pixelated;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 4px;
+  background: #111;
+}
+.btn-modal,
+.btn-overlay {
+  padding: clamp(8px, 1.5vh, 14px) clamp(20px, 4vw, 36px);
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  background: transparent;
+  color: #f39c12;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 100px;
+}
+.btn-modal:hover,
+.btn-overlay:hover {
+  background: #f39c12;
+  color: #1a1a1a;
+  transform: scale(1.05);
+}
+.botones-overlay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 1.5vw, 16px);
+}
+
+/* ============================================================
+   RESPONSIVE EXTREMO
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .grid-niveles {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 400px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 400px;
+  }
+  .config-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .buildings-left .b1,
+  .buildings-left .b2,
+  .buildings-right .b3 {
+    display: none;
+  }
+  .deco-gear {
+    width: clamp(60px, 12vw, 100px);
+    height: clamp(60px, 12vw, 100px);
+  }
+  .deco-crane {
+    width: clamp(100px, 18vw, 160px);
+    height: clamp(70px, 14vw, 120px);
+  }
+  .config-btn {
+    font-size: 0.8rem;
+    top: 12px;
+    right: 12px;
+  }
+  .main-content {
+    padding-left: 4%;
+  }
+  .titulo-juego {
+    font-size: clamp(2.2rem, 6vw, 3rem);
+    white-space: nowrap;
+  }
+  .btn-menu-principal {
+    font-size: 1.0rem;
+    width: auto;
+  }
+  .btn-pausa {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+    top: 8px;
+    right: 8px;
+  }
+  .overlay-pausa-contenido {
+    padding: 30px 20px;
+  }
+  .overlay-pausa-contenido h2 {
+    font-size: 1.6rem;
+  }
+  .btn-pausa-opcion {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+  .config-pausa-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-niveles {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 280px;
+  }
+  .btn-nivel {
+    font-size: 1.0rem;
+  }
+  .pantalla {
+    padding: 12px;
+  }
+  .config-btn {
+    font-size: 0.65rem;
+    top: 8px;
+    right: 8px;
+  }
+  .main-content {
+    padding-left: 3%;
+  }
+  .titulo-juego {
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
+  .btn-menu-principal {
+    font-size: 0.9rem;
+    width: auto;
+  }
+  .stats-card {
+    padding: 16px 12px 14px;
+    min-height: 140px;
+  }
+  .stat-label,
+  .stat-value {
+    font-size: 0.7rem;
+  }
+  .card-label {
+    font-size: 0.7rem;
+    bottom: 6px;
+    right: 10px;
+  }
+  .config-label {
+    font-size: 0.8rem;
+  }
+  .toggle-btn {
+    font-size: 0.75rem;
+  }
+  .btn-secundario {
+    font-size: 0.75rem;
+    padding: 6px 16px;
+  }
+  .btn-volver {
+    font-size: 0.9rem;
+  }
+  .btn-pausa {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    top: 6px;
+    right: 6px;
+  }
+  .overlay-pausa-contenido {
+    padding: 20px 16px;
+  }
+  .overlay-pausa-contenido h2 {
+    font-size: 1.4rem;
+  }
+  .btn-pausa-opcion {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+  .config-pausa-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .main-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding-left: 4%;
+    max-width: 90%;
+  }
+  .main-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 0;
+    width: auto;
+  }
+  .btn-menu-principal {
+    font-size: 0.9rem;
+    padding: 4px 12px;
+    width: auto;
+  }
+  .titulo-juego {
+    font-size: 1.8rem;
+    white-space: nowrap;
+    margin-right: 20px;
+    width: auto;
+  }
+  .buildings-left,
+  .buildings-right {
+    display: none;
+  }
+  .deco-gear {
+    width: 60px;
+    height: 60px;
+  }
+  .deco-crane {
+    display: none;
+  }
+  .config-btn {
+    font-size: 0.7rem;
+    top: 6px;
+    right: 8px;
+  }
+  .grid-niveles {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 400px;
+    gap: 6px;
+  }
+  .btn-nivel {
+    font-size: 1rem;
+  }
+  .btn-pausa {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    top: 4px;
+    right: 4px;
+  }
+  .overlay-pausa-contenido {
+    padding: 16px;
+    gap: 10px;
+  }
+  .overlay-pausa-contenido h2 {
+    font-size: 1.2rem;
+  }
+  .btn-pausa-opcion {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
+
+
+
+/* ============================================================
+   BOTÓN DOS JUGADORES DESHABILITADO EN MÓVIL
+   ============================================================ */
+.btn-menu-principal.deshabilitado-movil {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none; /* Opcional, pero el evento click lo manejamos con JS */
+  position: relative;
+}
+
+.btn-menu-principal.deshabilitado-movil::after {
+  content: "📱";
+  font-size: 1.2rem;
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+.btn-menu-principal.deshabilitado-movil:hover {
+  transform: none;
+  opacity: 0.5;
+}
+/* Botón DOS JUGADORES deshabilitado en móvil */
+#btn-dos-jugadores:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  pointer-events: none;
+}
