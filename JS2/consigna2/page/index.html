@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filtrado de Archivos</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div class="header-left">
+                <h1>🔍 Filtrado de Archivos</h1>
+                <p>Sube un archivo <strong>.txt</strong> para filtrar números que empiezan y terminan con el mismo dígito</p>
+            </div>
+            <div class="header-right">
+                <div class="header-info">
+                    <span id="fechaActual" class="fecha"></span>
+                    <span id="climaActual" class="clima">🌤️ Cargando...</span>
+                </div>
+                <button id="toggleTheme" class="btn-theme" aria-label="Cambiar tema">🌙 Modo Noche</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="card filtro-card">
+                <h2>Subir y filtrar archivo</h2>
+                <p class="subtitle">Selecciona un archivo <strong>.txt</strong> con números (uno por línea o separados por espacios, comas, etc.)</p>
+
+                <div class="file-upload">
+                    <label for="fileInput" class="btn btn-secondary">📂 Seleccionar archivo</label>
+                    <input type="file" id="fileInput" accept=".txt" />
+                    <span id="nombreArchivo">Ningún archivo seleccionado</span>
+                </div>
+
+                <button id="btnProcesar" class="btn btn-primary" disabled>⚙️ Procesar archivo</button>
+
+                <div id="resultadosFiltro" class="resultados" style="display: none;">
+                    <h3>Resultados del filtrado</h3>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">📊 Total números válidos</span>
+                            <span class="stat-value" id="totalNumeros">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">✅ Útiles (cumplen condición)</span>
+                            <span class="stat-value" id="utiles">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">❌ No útiles</span>
+                            <span class="stat-value" id="noUtiles">0</span>
+                        </div>
+                        <div class="stat-item highlight">
+                            <span class="stat-label">📈 Porcentaje de útiles</span>
+                            <span class="stat-value" id="porcentaje">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="lista-filtrada">
+                        <h4>📋 Números útiles (orden ascendente)</h4>
+                        <div id="numerosUtiles" class="numeros-utiles"></div>
+                    </div>
+
+                    <button id="btnDescargarFiltrado" class="btn btn-success" style="display:none;">⬇️ Descargar filtrado .txt</button>
+                </div>
+
+                <div id="mensajeGlobal" class="mensaje-global"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Los datos se procesan en el servidor • Clima de Mar del Plata, Argentina</p>
+        </footer>
+    </div>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

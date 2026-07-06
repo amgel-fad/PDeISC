@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingreso de Números</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div class="header-left">
+                <h1>🔢 Ingreso de Números</h1>
+                <p>Agrega entre <strong>10</strong> y <strong>20</strong> números (solo dígitos)</p>
+            </div>
+            <div class="header-right">
+                <div class="header-info">
+                    <span id="fechaActual" class="fecha"></span>
+                    <span id="climaActual" class="clima">🌤️ 22°C</span>
+                </div>
+                <button id="toggleTheme" class="btn-theme" aria-label="Cambiar tema">🌙 Modo Noche</button>
+            </div>
+        </header>
+
+        <main class="two-columns">
+            <!-- Columna izquierda: ingreso -->
+            <section class="col-ingreso">
+                <div class="card">
+                    <div class="input-group">
+                        <input type="text" id="inputNumero" placeholder="Escribe solo números" inputmode="numeric" pattern="[0-9]*" />
+                        <button id="btnAgregar" class="btn btn-primary">➕ Agregar</button>
+                    </div>
+
+                    <div class="info">
+                        <span>Agregados: <strong id="contador">0</strong></span>
+                        <span id="mensajeEstado" class="estado"></span>
+                    </div>
+
+                    <div class="acciones">
+                        <button id="btnGuardar" class="btn btn-success" disabled>💾 Guardar .txt</button>
+                        <button id="btnLimpiar" class="btn btn-outline">🗑️ Limpiar</button>
+                    </div>
+                    <div id="mensajeGlobal" class="mensaje-global"></div>
+                </div>
+            </section>
+
+            <!-- Columna derecha: lista de números -->
+            <section class="col-lista">
+                <div class="card lista-card">
+                    <h2>Números ingresados</h2>
+                    <div id="listaNumeros" class="lista">
+                        <!-- Los números se mostrarán aquí -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Los datos se guardan automáticamente al recargar</p>
+        </footer>
+    </div>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>
