@@ -1,0 +1,12 @@
+{
+  "name": "njs4",
+  "version": "1.0.0",
+  "description": "Gestor de enlaces dinámicos con feedback visual",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

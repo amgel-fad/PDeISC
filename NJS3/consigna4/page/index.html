@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Enlaces - Proyecto 4</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>🔗 Gestor de Enlaces</h1>
+            <button id="btn-theme" class="btn btn-theme">🌙 Modo Oscuro</button>
+        </div>
+        <nav class="nav-menu">
+            <button class="nav-btn active" data-target="comp1">Gestor de Enlaces</button>
+            <!-- Puedes agregar más componentes si quieres -->
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Componente único: Gestor de Enlaces -->
+        <section id="comp1" class="component active">
+            <h2>🔗 Crear y Modificar Enlaces</h2>
+
+            <!-- Botones para crear enlaces -->
+            <div class="btn-group" style="margin-bottom:20px;">
+                <button class="btn btn-success" id="create-link1">Crear Enlace 1</button>
+                <button class="btn btn-success" id="create-link2">Crear Enlace 2</button>
+                <button class="btn btn-success" id="create-link3">Crear Enlace 3</button>
+                <button class="btn btn-success" id="create-link4">Crear Enlace 4</button>
+                <button class="btn btn-success" id="create-link5">Crear Enlace 5</button>
+            </div>
+
+            <!-- Botón para modificar atributos -->
+            <div class="btn-group" style="margin-bottom:20px;">
+                <button class="btn btn-warning" id="modify-href">Cambiar href de todos</button>
+                <button class="btn btn-info" id="modify-target">Cambiar target a _blank</button>
+                <button class="btn btn-danger" id="reset-links">Restablecer enlaces</button>
+            </div>
+
+            <!-- Panel de enlaces creados -->
+            <div id="links-container" style="border:2px solid #3b82f6; padding:15px; border-radius:8px; margin-bottom:20px; min-height:100px;">
+                <p style="color: #6b7280;">Aquí aparecerán los enlaces creados...</p>
+            </div>
+
+            <!-- Panel de feedback (muestra los cambios) -->
+            <div id="feedback-panel" style="background: #f0f4ff; padding:15px; border-radius:8px; border-left:4px solid #3b82f6;">
+                <h3>📋 Registro de cambios</h3>
+                <div id="feedback-log" style="max-height:200px; overflow-y:auto; font-size:0.9rem;">
+                    <p><em>Esperando acciones...</em></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

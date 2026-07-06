@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulación DOM - DHTML</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Panel de Control DHTML</h1>
+            <p>Interactúa con el DOM usando los botones</p>
+            <button id="btn-theme" class="btn btn-theme">🌙 Modo Oscuro</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls-card">
+            <h3>Acciones del Título</h3>
+            <div class="btn-group">
+                <button id="btn-add-h1" class="btn btn-success">Agregar H1</button>
+                <button id="btn-change-h1" class="btn btn-primary">Cambiar Texto</button>
+                <button id="btn-color-h1" class="btn btn-warning">Cambiar Color</button>
+            </div>
+
+            <h3>Acciones de la Imagen</h3>
+            <div class="btn-group">
+                <button id="btn-add-img" class="btn btn-success">Agregar Imagen</button>
+                <button id="btn-change-img" class="btn btn-primary">Cambiar Imagen</button>
+                <button id="btn-size-img" class="btn btn-info">Cambiar Tamaño</button>
+            </div>
+        </section>
+
+        <section class="display-card">
+            <div id="status-message" class="status-message">Esperando acciones...</div>
+            <div id="canvas"></div>
+        </section>
+    </main>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

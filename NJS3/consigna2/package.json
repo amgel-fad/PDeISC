@@ -1,0 +1,12 @@
+{
+  "name": "njs3",
+  "version": "1.0.0",
+  "description": "Proyecto con Express y navegación a 5 componentes DHTML",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

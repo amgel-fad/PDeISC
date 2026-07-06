@@ -1,0 +1,311 @@
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #ddd;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --nav-btn-active: #3b82f6;
+    --feedback-bg: #f0f4ff;
+    --feedback-border: #3b82f6;
+}
+
+body.dark-mode {
+    --bg-color: #1a202c;
+    --card-bg: #2d3748;
+    --text-color: #e2e8f0;
+    --border-color: #4a5568;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.5);
+    --feedback-bg: #2d3748;
+    --feedback-border: #63b3ed;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 0 20px 40px;
+    transition: background-color 0.3s, color 0.3s;
+    padding-top: 120px; /* Espacio para la toolbar fija */
+}
+
+/* HEADER (título y modo oscuro) - NO FIJO */
+.main-header {
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* BARRA FIJA DE BOTONES (sticky) */
+.sticky-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 10px 20px;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: background 0.3s;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+}
+
+.sticky-toolbar .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Botones */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.1s;
+    color: white;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+.btn:hover {
+    filter: brightness(0.9);
+}
+
+.btn-success { background: #10b981; }
+.btn-danger { background: #ef4444; }
+.btn-warning { background: #f59e0b; color: #333; }
+.btn-primary { background: #3b82f6; }
+.btn-info { background: #06b6d4; }
+.btn-theme {
+    background: #6b7280;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+}
+.btn-small {
+    padding: 4px 12px;
+    font-size: 0.85rem;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.component {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: background 0.3s;
+}
+
+.component h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* Contenedor de inyección */
+#html-container {
+    min-height: 150px;
+    padding: 15px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    border: 2px dashed var(--border-color);
+    transition: background 0.3s, border-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#html-container .placeholder {
+    color: #6b7280;
+    text-align: center;
+}
+
+#html-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+#html-container .card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin: 10px 0;
+}
+
+#html-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+#html-container table th,
+#html-container table td {
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    text-align: left;
+}
+
+#html-container table th {
+    background: var(--nav-btn-active);
+    color: white;
+}
+
+#html-container ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+#html-container li {
+    margin: 5px 0;
+}
+
+/* Panel de feedback */
+#feedback-panel {
+    background: var(--feedback-bg);
+    border-left: 4px solid var(--feedback-border);
+    padding: 15px;
+    border-radius: 8px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#feedback-log {
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+}
+
+#feedback-log p {
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+}
+
+#feedback-log .feedback-success {
+    color: #10b981;
+}
+#feedback-log .feedback-info {
+    color: #3b82f6;
+}
+#feedback-log .feedback-warning {
+    color: #f59e0b;
+}
+#feedback-log .feedback-danger {
+    color: #ef4444;
+}
+
+/* Botón flotante "Volver arriba" */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 999;
+    display: none;
+    background: var(--nav-btn-active);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.scroll-top-btn:hover {
+    background: #2563eb;
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px;
+    }
+    .sticky-toolbar .btn-group {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        white-space: normal;
+    }
+    .component {
+        padding: 20px 15px;
+    }
+    .scroll-top-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 140px;
+    }
+    .sticky-toolbar .btn-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    #html-container table {
+        font-size: 0.7rem;
+    }
+    #html-container table th,
+    #html-container table td {
+        padding: 4px;
+    }
+}

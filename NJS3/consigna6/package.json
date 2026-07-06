@@ -1,0 +1,12 @@
+{
+  "name": "njs6",
+  "version": "1.0.0",
+  "description": "Formulario de registro con visualización dinámica",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

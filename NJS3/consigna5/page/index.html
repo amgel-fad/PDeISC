@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inyector HTML - Proyecto 5</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+
+    <!-- HEADER: Título y modo oscuro (NO FIJOS) -->
+    <header class="main-header">
+        <div class="header-content">
+            <h1>🧩 Inyector de HTML</h1>
+            <button id="btn-theme" class="btn btn-theme">🌙 Modo Oscuro</button>
+        </div>
+    </header>
+
+    <!-- BARRA FIJA DE BOTONES (sticky) -->
+    <div class="sticky-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-success" id="add-paragraph">Agregar Párrafo</button>
+            <button class="btn btn-success" id="add-image">Agregar Imagen</button>
+            <button class="btn btn-success" id="add-list">Agregar Lista</button>
+            <button class="btn btn-success" id="add-card">Agregar Tarjeta</button>
+            <button class="btn btn-success" id="add-table">Agregar Tabla</button>
+            <button class="btn btn-danger" id="clear-all">Limpiar todo</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <section id="comp1" class="component active">
+            <h2>📦 Agregar objetos HTML usando <code>innerHTML</code></h2>
+
+            <!-- Contenedor donde se inyecta el HTML -->
+            <div id="html-container">
+                <p class="placeholder">Aquí aparecerán los objetos HTML que agregues...</p>
+            </div>
+
+            <!-- Panel de feedback -->
+            <div id="feedback-panel">
+                <div class="feedback-header">
+                    <h3>📋 Registro</h3>
+                    <button class="btn btn-danger btn-small" id="clear-feedback">🗑️ Borrar registro</button>
+                </div>
+                <div id="feedback-log">
+                    <p><em>Esperando acciones...</em></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botón "Volver arriba" (flotante) -->
+    <button id="scroll-top" class="btn btn-primary scroll-top-btn" title="Volver arriba">⬆</button>
+
+    <script src="/script/script.js"></script>
+</body>
+</html>

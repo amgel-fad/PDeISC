@@ -1,0 +1,245 @@
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --border-color: #ddd;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --input-bg: #f9fafb;
+    --primary: #3b82f6;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
+body.dark-mode {
+    --bg-color: #1a202c;
+    --card-bg: #2d3748;
+    --text-color: #e2e8f0;
+    --border-color: #4a5568;
+    --shadow: 0 2px 8px rgba(0,0,0,0.5);
+    --input-bg: #3a4458;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+    transition: background 0.3s;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+/* Layout de dos columnas */
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* Columna izquierda: formulario */
+.form-section {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: background 0.3s;
+}
+
+.register-form .form-group {
+    margin-bottom: 18px;
+}
+
+.register-form .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.register-form .form-group input[type="text"],
+.register-form .form-group input[type="number"],
+.register-form .form-group input[type="email"],
+.register-form .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.register-form .form-group input:focus,
+.register-form .form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+.register-form .form-group small {
+    display: block;
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-top: 5px;
+}
+
+.radio-group label,
+.checkbox-group label {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.1s;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+.btn:hover {
+    filter: brightness(0.9);
+}
+
+.btn-success { background: var(--success); }
+.btn-warning { background: var(--warning); color: #333; }
+.btn-primary { background: var(--primary); }
+.btn-danger { background: var(--danger); }
+.btn-theme {
+    background: #6b7280;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+}
+
+/* Columna derecha: registros */
+.records-section {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: background 0.3s;
+}
+
+.records-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.empty-message {
+    color: #6b7280;
+    text-align: center;
+    font-style: italic;
+}
+
+.record-item {
+    background: var(--input-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success);
+    margin-bottom: 15px;
+    transition: background 0.3s;
+}
+
+.record-item p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+.record-item strong {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 10px;
+    }
+    .two-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .form-section,
+    .records-section {
+        padding: 18px;
+    }
+    .radio-group,
+    .checkbox-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .form-actions {
+        flex-direction: column;
+    }
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .records-section h2 {
+        font-size: 1.2rem;
+    }
+    .record-item {
+        padding: 12px;
+    }
+    .record-item p {
+        font-size: 0.85rem;
+    }
+}
