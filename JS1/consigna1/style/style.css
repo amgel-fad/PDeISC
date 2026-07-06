@@ -1,0 +1,243 @@
+/* [Se mantienen todas las variables y estilos anteriores...] */
+
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --text-secondary: #666666;
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --border-color: #dddddd;
+    --nav-bg: #ffffff;
+    --nav-shadow: rgba(0, 0, 0, 0.05);
+    --error-color: #ef4444; /* Rojo para el error */
+}
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-secondary: #94a3b8;
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --border-color: #334155;
+    --nav-bg: #1e293b;
+    --nav-shadow: rgba(0, 0, 0, 0.2);
+    --error-color: #f87171;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: var(--nav-bg);
+    box-shadow: 0 2px 4px var(--nav-shadow);
+}
+
+.nav-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+#current-date {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn-theme {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.btn-theme:hover {
+    background-color: var(--bg-color);
+}
+
+/* Contenedor Principal */
+.container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    padding: 0 2%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.form-section, .list-section {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* Formularios y Errores */
+.form-group, .method-selector {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+input.invalid {
+    border-color: var(--error-color);
+    outline: 1px solid var(--error-color);
+}
+
+.error-message {
+    display: block;
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    min-height: 1.2rem;
+}
+
+.method-selector {
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px dashed var(--primary-color);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Grid de Usuarios */
+.users-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.user-card {
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    position: relative; /* Clave para posicionar el botón de borrar */
+}
+
+.user-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    padding-right: 25px; /* Evita que el texto tape la cruz */
+}
+
+.user-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Botón de Borrar */
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete:hover {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.empty-message {
+    color: var(--text-secondary);
+    text-align: center;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 1.5fr;
+        padding: 0 3%;
+    }
+    .users-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}

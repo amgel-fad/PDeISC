@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Pro - JS2</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">JS2 - Inventario Validado Dinámico</div>
+        <div class="nav-right">
+            <span id="current-date"></span>
+            <button id="theme-toggle" class="btn-theme">🌙 Modo Noche</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="form-section">
+            <h2>Registro de Artículo</h2>
+            <form id="inventory-form" novalidate>
+                
+                <div class="form-group">
+                    <label for="prod-category">1. Seleccione Categoría Principal:</label>
+                    <select id="prod-category">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="Deportes">Deportes</option>
+                        <option value="Herramientas">Herramientas</option>
+                        <option value="Tecnología">Tecnología</option>
+                    </select>
+                    <span id="error-category" class="error-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="prod-name">2. Nombre del Artículo:</label>
+                    <select id="prod-name" disabled>
+                        <option value="">-- Primero elija una categoría --</option>
+                    </select>
+                    <span id="error-name" class="error-msg"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prod-brand">Marca:</label>
+                        <select id="prod-brand">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Adidas">Adidas</option>
+                            <option value="Stanley">Stanley</option>
+                            <option value="Bosch">Bosch</option>
+                            <option value="Sony">Sony</option>
+                            <option value="Generico">Genérico</option>
+                        </select>
+                        <span id="error-brand" class="error-msg"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price-tier">Gama de Precio:</label>
+                        <select id="price-tier">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="barato">Barato</option>
+                            <option value="medio">Medio</option>
+                            <option value="caro">Caro</option>
+                        </select>
+                        <span id="error-tier" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prod-price">Precio Asignado ($):</label>
+                        <input type="number" id="prod-price" readonly placeholder="Se calculará solo">
+                        <span id="error-price" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-stock">Stock Inicial:</label>
+                        <input type="number" id="prod-stock" placeholder="0">
+                        <span id="error-stock" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prod-date">Fecha de Ingreso:</label>
+                        <input type="date" id="prod-date">
+                        <span id="error-date" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-condition">Condición:</label>
+                        <select id="prod-condition">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Usado">Usado</option>
+                        </select>
+                        <span id="error-condition" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="prod-featured">
+                    <label for="prod-featured">¿Artículo Destacado?</label>
+                </div>
+
+                <div class="storage-selector">
+                    <label><strong>Almacenamiento:</strong></label>
+                    <select id="storage-method">
+                        <option value="all">Guardar en TODOS</option>
+                        <option value="memory">Solo Memoria</option>
+                        <option value="local">Solo LocalStorage</option>
+                        <option value="session">Solo SessionStorage</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Guardar Artículo</button>
+            </form>
+        </section>
+
+        <section class="display-section">
+            <div class="names-list-box">
+                <h3>Listado de Nombres Almacenados</h3>
+                <ul id="names-list" class="names-list">
+                    <li class="empty-message">No hay nombres registrados.</li>
+                </ul>
+            </div>
+            
+            <hr class="separator">
+
+            <h3>Fichas Completas</h3>
+            <div class="tabs-indicators">
+                <span class="indicator ind-memory">Memoria: <b id="count-memory">0</b></span>
+                <span class="indicator ind-local">Local: <b id="count-local">0</b></span>
+                <span class="indicator ind-session">Session: <b id="count-session">0</b></span>
+            </div>
+
+            <div id="items-container" class="items-grid">
+                <p class="empty-message">No hay artículos cargados.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos de Personas - JS3</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">JS3 - Registro de Legajos</div>
+        <div class="nav-right">
+            <span id="current-date"></span>
+            <button id="theme-toggle" class="btn-theme">🌙 Modo Noche</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="form-section">
+            <h2>Datos Personales</h2>
+            <form id="person-form" novalidate>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p-name">Nombre:</label>
+                        <input type="text" id="p-name" placeholder="Ej: Carlos">
+                        <span id="error-name" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-lastname">Apellido:</label>
+                        <input type="text" id="p-lastname" placeholder="Ej: Gómez">
+                        <span id="error-lastname" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p-doc">Documento (N°):</label>
+                        <input type="number" id="p-doc" placeholder="Solo números">
+                        <span id="error-doc" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-phone">Teléfono de Contacto:</label>
+                        <input type="tel" id="p-phone" placeholder="Ej: 1123456789">
+                        <span id="error-phone" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="p-mail">Correo Electrónico:</label>
+                    <input type="email" id="p-mail" placeholder="nombre@correo.com">
+                    <span id="error-mail" class="error-msg"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p-birth">Fecha de Nacimiento:</label>
+                        <input type="date" id="p-birth">
+                        <span id="error-birth" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-age">Edad:</label>
+                        <input type="number" id="p-age" placeholder="Ej: 25">
+                        <span id="error-age" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p-gender">Sexo:</label>
+                        <select id="p-gender">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
+                        <span id="error-gender" class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-civil">Estado Civil:</label>
+                        <select id="p-civil">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Soltero/a">Soltero/a</option>
+                            <option value="Casado/a">Casado/a</option>
+                            <option value="Divorciado/a">Divorciado/a</option>
+                            <option value="Viudo/a">Viudo/a</option>
+                        </select>
+                        <span id="error-civil" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="p-nationality">Nacionalidad:</label>
+                    <select id="p-nationality">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Brasil">Brasil</option>
+                        <option value="Uruguay">Uruguay</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                    <span id="error-nationality" class="error-msg"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p-has-children">¿Tiene hijos?</label>
+                        <select id="p-has-children">
+                            <option value="No">No</option>
+                            <option value="Si">Sí</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden-field" id="children-count-wrapper">
+                        <label for="p-children-count">¿Cuántos hijos tiene?</label>
+                        <input type="number" id="p-children-count" min="1" value="1">
+                        <span id="error-children" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Registrar Legajo</button>
+            </form>
+        </section>
+
+        <section class="display-section">
+            <div class="names-list-box">
+                <h3>Personas Registradas (Nombres Completos)</h3>
+                <ul id="people-names-list" class="names-list">
+                    <li class="empty-message">No hay personas registradas aún.</li>
+                </ul>
+            </div>
+
+            <hr class="separator">
+
+            <h3>Fichas de Legajos Guardados (LocalStorage)</h3>
+            <div id="people-cards-container" class="items-grid">
+                <p class="empty-message">No hay registros de legajos en la base de datos.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+/* --- VARIABLES DE DISEÑO Y TEMAS --- */
+:root {
+    --bg-color: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-color: #0f172a;
+    --text-secondary: #64748b;
+    --primary-color: #06b6d4;
+    --primary-hover: #0891b2;
+    --border-color: #cbd5e1;
+    --nav-bg: #ffffff;
+    --nav-shadow: rgba(0, 0, 0, 0.05);
+    --error-color: #ef4444;
+    --success-color: #10b981;
+    
+    --badge-memory: #3b82f6;
+    --badge-local: #10b981;
+    --badge-session: #f59e0b;
+}
+
+body.dark-mode {
+    --bg-color: #090d16;
+    --card-bg: #111827;
+    --text-color: #f8fafc;
+    --text-secondary: #94a3b8;
+    --primary-color: #22d3ee;
+    --primary-hover: #06b6d4;
+    --border-color: #374151;
+    --nav-bg: #111827;
+    --nav-shadow: rgba(0, 0, 0, 0.3);
+    --error-color: #f87171;
+}
+
+/* --- RESET GLOBAL --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.4;
+}
+
+/* --- NAVBAR RESPONSIVA --- */
+.navbar {
+    display: flex;
+    flex-wrap: wrap; /* Permite bajarse en pantallas ultra chicas */
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 4%;
+    background-color: var(--nav-bg);
+    box-shadow: 0 2px 4px var(--nav-shadow);
+}
+
+.nav-brand { 
+    font-weight: 800; 
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.nav-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    font-size: 0.85rem;
+}
+
+.btn-theme { 
+    background: none; 
+    border: 1px solid var(--border-color); 
+    padding: 0.4rem 0.8rem; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    color: var(--text-color); 
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* --- CONTENEDOR PRINCIPAL FLUIDO --- */
+.container {
+    max-width: 1500px; /* Estiramos el tope para monitores anchos */
+    margin: 1rem auto;
+    padding: 0 3%; /* Margen lateral mínimo y controlado para no dejar huecos */
+    display: grid;
+    grid-template-columns: 1fr; /* Por defecto en móviles es 1 columna */
+    gap: 1.25rem;
+}
+
+.form-section, .display-section {
+    background-color: var(--card-bg);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    height: fit-content;
+}
+
+h2, h3 { margin-bottom: 0.8rem; }
+h2 { border-left: 4px solid var(--primary-color); padding-left: 8px; font-size: 1.2rem;}
+h3 { font-size: 1rem; margin-top: 0.5rem;}
+
+.separator { border: 0; border-top: 1px solid var(--border-color); margin: 1.25rem 0; }
+
+/* --- GRILLA DEL FORMULARIO (CAMPOS INTELIGENTES) --- */
+.form-group { 
+    margin-bottom: 0.5rem; 
+}
+
+/* Fila de inputs por defecto en columna para mobile */
+.form-row { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 0 1rem; 
+}
+
+label { 
+    display: block; 
+    margin-bottom: 0.25rem; 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+}
+
+input[type="text"], input[type="number"], input[type="date"], select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+input.input-error, select.input-error {
+    border-color: var(--error-color) !important;
+    outline: 1px solid var(--error-color);
+}
+
+.error-msg {
+    display: block;
+    color: var(--error-color);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+    min-height: 1rem; /* Mantiene el espacio guardado para que no salte el layout */
+    font-weight: 500;
+}
+
+.checkbox-group { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+    padding: 0.4rem 0; 
+}
+.checkbox-group input { width: 16px; height: 16px; cursor: pointer; }
+
+.storage-selector { 
+    background-color: var(--bg-color); 
+    padding: 0.75rem; 
+    border-radius: 8px; 
+    margin: 0.5rem 0 1rem 0; 
+}
+
+.btn-submit {
+    width: 100%; 
+    padding: 0.75rem; 
+    background-color: var(--primary-color);
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    font-size: 0.95rem; 
+    font-weight: 700; 
+    cursor: pointer;
+}
+.btn-submit:hover { background-color: var(--primary-hover); }
+
+/* --- BLOQUE DE LISTADOS --- */
+.names-list-box {
+    background-color: var(--bg-color);
+    padding: 0.85rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Grilla fluida para los nombres de los artículos */
+.names-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Se acomodan solos en filas según ancho */
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.names-list li {
+    background-color: var(--card-bg);
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border-left: 3px solid var(--text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Corta con tres puntos si el nombre es kilométrico */
+}
+
+/* --- INDICADORES --- */
+.tabs-indicators { 
+    display: flex; 
+    gap: 0.4rem; 
+    margin-bottom: 0.8rem; 
+    flex-wrap: wrap; 
+}
+.indicator { font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 4px; color: white; font-weight: bold;}
+.ind-memory { background-color: var(--badge-memory); }
+.ind-local { background-color: var(--badge-local); }
+.ind-session { background-color: var(--badge-session); }
+
+/* --- GRILLA FLUIDA DE TARJETAS COMPLETAS --- */
+.items-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* Ajuste automático perfecto en mobile y monitor */
+    gap: 0.85rem; 
+}
+
+.item-card { 
+    background-color: var(--bg-color); 
+    padding: 0.85rem; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-color); 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 0.4rem; 
+}
+.item-header h4 { font-size: 0.95rem; font-weight: 700; }
+
+.item-details { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 0.25rem; 
+    font-size: 0.75rem; 
+    color: var(--text-secondary); 
+    margin-bottom: 0.5rem;
+}
+
+.mini-badge { font-size: 0.65rem; padding: 0.15rem 0.35rem; border-radius: 3px; color: white; font-weight: bold; }
+.empty-message { color: var(--text-secondary); font-style: italic; font-size: 0.85rem; grid-column: 1/-1; text-align: center; padding: 1rem 0;}
+
+/* --- TOAST SYSTEM (NOTIFICACIONES FLOTANTES) --- */
+.toast-container {
+    position: fixed;
+    bottom: 15px; /* Pasado abajo para mejor UX en móviles */
+    right: 15px;
+    left: 15px;  /* Toma todo el ancho en celulares */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+.toast {
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    pointer-events: auto;
+}
+.toast.success { background-color: var(--success-color); }
+.toast.error { background-color: var(--error-color); }
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Aquí se activa la magia responsiva de forma escalonada)
+   ========================================================================== */
+
+/* En tablets y celulares medianos/grandes en adelante */
+@media (min-width: 576px) {
+    .form-row { 
+        grid-template-columns: 1fr 1fr; /* Filas del form se dividen en 2 inputs */
+    }
+    .toast-container {
+        left: auto; /* El cartel flotante vuelve a la esquina en pantallas más anchas */
+        max-width: 350px;
+    }
+}
+
+/* En Escritorio / Computadoras */
+@media (min-width: 992px) {
+    .container { 
+        grid-template-columns: 1fr 1.3fr; /* El Formulario va a la izquierda fija y las Fichas a la derecha */
+        padding: 0 2%;
+        gap: 1.5rem;
+    }
+    .form-section {
+        position: sticky;
+        top: 1.5rem; /* El formulario se queda clavado al hacer scroll si la lista es muy larga */
+    }
+}
+
+/* Pantallas Ultra Anchas */
+@media (min-width: 1400px) {
+    .container {
+        padding: 0; /* Cero márgenes en los extremos para pantallas gigantes, contención pura */
+    }
+}
