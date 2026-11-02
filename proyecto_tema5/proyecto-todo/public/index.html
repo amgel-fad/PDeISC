@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendientes</title>
+  <meta name="theme-color" content="#e9edf5">
+  <script>
+    /* Aplica el tema antes de pintar para evitar el parpadeo */
+    (function () {
+      var t = localStorage.getItem("tema-preferido");
+      if (t !== "dark" && t !== "light") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <!-- axios se carga como librería global (lo usa api.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="cabecera">
+      <div>
+        <h1>Pendientes</h1>
+        <p id="resumen" class="resumen">Cargando…</p>
+      </div>
+      <button id="btn-tema" class="tema" type="button" aria-pressed="false" aria-label="Cambiar a modo noche">
+        <svg class="luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </header>
+
+    <form id="form-nueva" class="nueva" autocomplete="off">
+      <input id="input-titulo" type="text" placeholder="¿Qué tenés que hacer?" maxlength="80" aria-label="Nueva tarea">
+      <button type="submit" class="btn btn-primario">Agregar tarea</button>
+    </form>
+
+    <div id="mensaje" class="mensaje" role="status" aria-live="polite" hidden></div>
+
+    <nav class="filtros" aria-label="Filtrar tareas">
+      <button class="filtro activo" data-filtro="todas">Todas</button>
+      <button class="filtro" data-filtro="pendientes">Pendientes</button>
+      <button class="filtro" data-filtro="completadas">Completadas</button>
+    </nav>
+
+    <ul id="lista" class="lista"></ul>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form-editar" method="dialog">
+      <h2>Editar tarea</h2>
+      <input id="input-editar" type="text" maxlength="80" aria-label="Título de la tarea">
+      <div class="acciones">
+        <button type="button" id="cancelar-edicion" class="btn btn-suave">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar cambios</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

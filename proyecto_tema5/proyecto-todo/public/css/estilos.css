@@ -1,0 +1,117 @@
+/* ---------- Temas (claro por defecto, oscuro con data-theme="dark") ---------- */
+:root {
+  color-scheme: light;
+  --fondo: #e9edf5; --papel: #ffffff; --tinta: #16213a; --suave: #5d6b88;
+  --linea: #d6dcea; --acento: #2b55e6; --acento-osc: #1d3fb8; --sobre-acento: #fff;
+  --ok: #17936f; --ok-fondo: #def4ec; --ok-texto: #0d5c45;
+  --error: #c93c48; --error-fondo: #fbe3e5; --error-texto: #8a2029;
+  --sombra: 0 1px 2px rgba(22, 33, 58, .06);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --fondo: #0e1424; --papel: #172038; --tinta: #e8ecf6; --suave: #9aa7c4;
+  --linea: #2a3555; --acento: #4f74f7; --acento-osc: #6d8cff; --sobre-acento: #fff;
+  --ok: #3ccf9f; --ok-fondo: #11382e; --ok-texto: #8cebc9;
+  --error: #ff6b76; --error-fondo: #3c1b22; --error-texto: #ffb3b9;
+  --sombra: none;
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: "Figtree", system-ui, sans-serif; background: var(--fondo); color: var(--tinta);
+  min-height: 100vh; min-height: 100dvh; line-height: 1.5;
+  padding: max(clamp(1rem, 4vw, 2.5rem), env(safe-area-inset-top)) max(clamp(.9rem, 4vw, 2.5rem), env(safe-area-inset-right))
+           max(clamp(1rem, 4vw, 2.5rem), env(safe-area-inset-bottom)) max(clamp(.9rem, 4vw, 2.5rem), env(safe-area-inset-left));
+  transition: background .25s, color .25s;
+}
+.app { width: 100%; max-width: 680px; margin: 0 auto; }
+
+/* ---------- Cabecera (SIN CAMBIOS) ---------- */
+.cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(2.2rem, 9vw, 3.8rem);
+  letter-spacing: -0.03em; line-height: 1; }
+.resumen { color: var(--suave); margin-top: .5rem; }
+
+.tema { flex: none; width: 48px; height: 48px; display: grid; place-items: center; cursor: pointer;
+  background: var(--papel); color: var(--tinta); border: 2px solid var(--linea); border-radius: 50%; box-shadow: var(--sombra); }
+.tema:hover { border-color: var(--acento); }
+.tema svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tema .sol { display: none; }
+:root[data-theme="dark"] .tema .sol { display: block; }
+:root[data-theme="dark"] .tema .luna { display: none; }
+
+/* ---------- Formulario: input arriba, botón abajo ---------- */
+.nueva { display: flex; flex-direction: column; gap: .5rem; }
+input[type=text] { flex: 1 1 auto; min-width: 0; min-height: 48px; padding: .75rem 1rem; font: inherit; font-size: 1rem; color: inherit;
+  background: var(--papel); border: 2px solid var(--linea); border-radius: 12px; }
+input[type=text]::placeholder { color: var(--suave); }
+input[type=text]:focus { outline: none; border-color: var(--acento); }
+
+.btn { font: inherit; font-weight: 600; min-height: 48px; padding: .75rem 1.2rem; border: 0; border-radius: 12px; cursor: pointer; white-space: nowrap; }
+.btn-primario { background: var(--acento); color: var(--sobre-acento); }
+.btn-primario:hover { background: var(--acento-osc); }
+.btn-suave { background: var(--linea); color: var(--tinta); }
+.btn:focus-visible, .filtro:focus-visible, .icono:focus-visible, .tema:focus-visible, .tarea input:focus-visible {
+  outline: 3px solid var(--acento); outline-offset: 2px; }
+
+/* ---------- Mensajes (SIN CAMBIOS) ---------- */
+.mensaje { margin-top: 1rem; padding: .75rem 1rem; border-radius: 10px; font-weight: 500;
+  border-left: 5px solid var(--ok); background: var(--ok-fondo); color: var(--ok-texto); }
+.mensaje.error { border-left-color: var(--error); background: var(--error-fondo); color: var(--error-texto); }
+
+/* ---------- Filtros: uno debajo del otro ---------- */
+.filtros { display: flex; flex-direction: column; gap: .4rem; margin: 1.5rem 0 1rem; }
+.filtro { font: inherit; font-weight: 600; min-height: 44px; padding: .45rem 1.1rem; border-radius: 999px; cursor: pointer;
+  border: 2px solid var(--linea); background: transparent; color: var(--suave); text-align: left; }
+.filtro.activo { background: var(--tinta); border-color: var(--tinta); color: var(--fondo); }
+
+/* ---------- Lista ---------- */
+.lista { list-style: none; padding: 0; display: grid; gap: .6rem; }
+
+/* Tarea en vertical: fila 1 = checkbox + título, fila 2 = Editar, fila 3 = Eliminar */
+.tarea {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: .5rem .8rem;
+  background: var(--papel);
+  padding: .7rem 1rem;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  box-shadow: var(--sombra);
+}
+.tarea input[type=checkbox] { width: 1.5rem; height: 1.5rem; accent-color: var(--ok); cursor: pointer; grid-column: 1; grid-row: 1; }
+.titulo { min-width: 0; overflow-wrap: anywhere; grid-column: 2; grid-row: 1; }
+.tarea .editar { grid-column: 1 / 3; grid-row: 2; justify-self: stretch; text-align: left; }
+.tarea .borrar { grid-column: 1 / 3; grid-row: 3; justify-self: stretch; text-align: left; }
+
+.tarea.hecha { background: transparent; border-color: var(--linea); box-shadow: none; }
+.tarea.hecha .titulo { text-decoration: line-through; color: var(--suave); }
+
+.icono { font: inherit; font-size: .9rem; font-weight: 600; min-height: 40px; background: none; border: 0; padding: .3rem .7rem;
+  border-radius: 8px; cursor: pointer; color: var(--suave); }
+.icono:hover { background: var(--fondo); color: var(--tinta); }
+.icono.borrar:hover { background: var(--error-fondo); color: var(--error); }
+.vacio { text-align: center; color: var(--suave); padding: 2rem 1rem; border: 2px dashed var(--linea); border-radius: 14px; }
+
+/* ---------- Diálogo de edición: botones apilados ---------- */
+dialog { border: 0; border-radius: 16px; padding: 1.5rem; width: min(92vw, 440px); background: var(--papel); color: var(--tinta); margin: auto; }
+dialog::backdrop { background: rgba(8, 12, 24, .6); }
+dialog h2 { font-family: "Bricolage Grotesque", sans-serif; margin-bottom: 1rem; }
+dialog input { width: 100%; }
+.acciones { display: flex; flex-direction: column; gap: .5rem; margin-top: 1rem; }
+
+/* ---------- Responsive ---------- */
+@media (min-width: 900px) {
+  .app { max-width: 760px; }
+  .tarea { padding: .85rem 1.2rem; }
+}
+@media (max-width: 560px) {
+  .filtro { padding: .45rem .8rem; }
+  dialog { width: 100%; max-width: none; margin: auto 0 0; border-radius: 20px 20px 0 0; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  .acciones .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tarea, .tema, .filtro { transition: background .2s, border-color .2s, color .2s; }
+}
